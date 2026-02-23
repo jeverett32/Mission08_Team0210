@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Mission08_TeamXXXX.Models;
 using System.Diagnostics;
 
 namespace Mission08_Team0210.Controllers
@@ -19,7 +20,7 @@ namespace Mission08_Team0210.Controllers
         public IActionResult AddEditTask()
         {
             ViewBag.Categories = _repo.Categories.ToList();
-            return View("AddEdit", new TaskModel());
+            return View(new TaskModel());
         }
         [HttpPost]
         public IActionResult AddEditTask(TaskModel response)
@@ -31,14 +32,14 @@ namespace Mission08_Team0210.Controllers
             }
 
             ViewBag.Categories = _repo.Categories.ToList();
-            return View("AddEdit", response);
+            return View(response);
         }
         [HttpGet]
         public IActionResult Edit(int id)
         {
             ViewBag.Categories = _repo.Categories.ToList();
             var task = _repo.Tasks.Single(x => x.TaskId == id);
-            return View("AddEdit", task);
+            return View("AddEditTask", task);
         }
         [HttpGet]
         public IActionResult Delete(int id)
