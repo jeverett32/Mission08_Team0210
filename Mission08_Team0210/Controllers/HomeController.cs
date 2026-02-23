@@ -19,7 +19,7 @@ namespace Mission08_Team0210.Controllers
         public IActionResult AddEditTask()
         {
             ViewBag.Categories = _repo.Categories.ToList();
-            return View(new TaskModel());
+            return View("AddEdit", new TaskModel());
         }
         [HttpPost]
         public IActionResult AddEditTask(TaskModel response)
@@ -31,14 +31,14 @@ namespace Mission08_Team0210.Controllers
             }
 
             ViewBag.Categories = _repo.Categories.ToList();
-            return View(response);
+            return View("AddEdit", response);
         }
         [HttpGet]
         public IActionResult Edit(int id)
         {
             ViewBag.Categories = _repo.Categories.ToList();
             var task = _repo.Tasks.Single(x => x.TaskId == id);
-            return View("AddEditTask", task);
+            return View("AddEdit", task);
         }
         [HttpGet]
         public IActionResult Delete(int id)
