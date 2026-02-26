@@ -1,8 +1,163 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@model List<TaskModel>
+
+@{
+    ViewData["Title"] = "Task Quadrants";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1 class="mb-4 text-center">Task Quadrants</h1>
+
+<div class="row">
+
+    <!-- Quadrant I: Important / Urgent -->
+    <div class="col-md-6 mb-4">
+        <div class="card border-danger h-100">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0">Quadrant I: Important / Urgent</h5>
+            </div>
+            <div class="card-body">
+                @foreach (var task in Model.Where(t => t.Quadrant == 1))
+                {
+                    <div class="card mb-2">
+                        <div class="card-body p-3">
+                            <h6 class="card-title mb-1">@task.TaskName</h6>
+                            @if (!string.IsNullOrEmpty(task.DueDate))
+                            {
+                                <p class="card-text small text-muted mb-1">Due: @task.DueDate</p>
+                            }
+                            @if (task.Category != null)
+                            {
+                                <p class="card-text small text-muted mb-1">Category: @task.Category.CategoryName</p>
+                            }
+                            <div class="mt-2">
+                                <a asp-controller="Home" asp-action="Edit" asp-route-id="@task.TaskId"
+                                   class="btn btn-outline-primary btn-sm">Edit</a>
+                                <a asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId"
+                                   class="btn btn-outline-danger btn-sm">Delete</a>
+                                <form asp-controller="Home" asp-action="MarkComplete" asp-route-id="@task.TaskId"
+                                      method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-outline-success btn-sm">Complete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Quadrant II: Important / Not Urgent -->
+    <div class="col-md-6 mb-4">
+        <div class="card border-warning h-100">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">Quadrant II: Important / Not Urgent</h5>
+            </div>
+            <div class="card-body">
+                @foreach (var task in Model.Where(t => t.Quadrant == 2))
+                {
+                    <div class="card mb-2">
+                        <div class="card-body p-3">
+                            <h6 class="card-title mb-1">@task.TaskName</h6>
+                            @if (!string.IsNullOrEmpty(task.DueDate))
+                            {
+                                <p class="card-text small text-muted mb-1">Due: @task.DueDate</p>
+                            }
+                            @if (task.Category != null)
+                            {
+                                <p class="card-text small text-muted mb-1">Category: @task.Category.CategoryName</p>
+                            }
+                            <div class="mt-2">
+                                <a asp-controller="Home" asp-action="Edit" asp-route-id="@task.TaskId"
+                                   class="btn btn-outline-primary btn-sm">Edit</a>
+                                <a asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId"
+                                   class="btn btn-outline-danger btn-sm">Delete</a>
+                                <form asp-controller="Home" asp-action="MarkComplete" asp-route-id="@task.TaskId"
+                                      method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-outline-success btn-sm">Complete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <!-- Quadrant III: Not Important / Urgent -->
+    <div class="col-md-6 mb-4">
+        <div class="card border-info h-100">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">Quadrant III: Not Important / Urgent</h5>
+            </div>
+            <div class="card-body">
+                @foreach (var task in Model.Where(t => t.Quadrant == 3))
+                {
+                    <div class="card mb-2">
+                        <div class="card-body p-3">
+                            <h6 class="card-title mb-1">@task.TaskName</h6>
+                            @if (!string.IsNullOrEmpty(task.DueDate))
+                            {
+                                <p class="card-text small text-muted mb-1">Due: @task.DueDate</p>
+                            }
+                            @if (task.Category != null)
+                            {
+                                <p class="card-text small text-muted mb-1">Category: @task.Category.CategoryName</p>
+                            }
+                            <div class="mt-2">
+                                <a asp-controller="Home" asp-action="Edit" asp-route-id="@task.TaskId"
+                                   class="btn btn-outline-primary btn-sm">Edit</a>
+                                <a asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId"
+                                   class="btn btn-outline-danger btn-sm">Delete</a>
+                                <form asp-controller="Home" asp-action="MarkComplete" asp-route-id="@task.TaskId"
+                                      method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-outline-success btn-sm">Complete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Quadrant IV: Not Important / Not Urgent -->
+    <div class="col-md-6 mb-4">
+        <div class="card border-secondary h-100">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Quadrant IV: Not Important / Not Urgent</h5>
+            </div>
+            <div class="card-body">
+                @foreach (var task in Model.Where(t => t.Quadrant == 4))
+                {
+                    <div class="card mb-2">
+                        <div class="card-body p-3">
+                            <h6 class="card-title mb-1">@task.TaskName</h6>
+                            @if (!string.IsNullOrEmpty(task.DueDate))
+                            {
+                                <p class="card-text small text-muted mb-1">Due: @task.DueDate</p>
+                            }
+                            @if (task.Category != null)
+                            {
+                                <p class="card-text small text-muted mb-1">Category: @task.Category.CategoryName</p>
+                            }
+                            <div class="mt-2">
+                                <a asp-controller="Home" asp-action="Edit" asp-route-id="@task.TaskId"
+                                   class="btn btn-outline-primary btn-sm">Edit</a>
+                                <a asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId"
+                                   class="btn btn-outline-danger btn-sm">Delete</a>
+                                <form asp-controller="Home" asp-action="MarkComplete" asp-route-id="@task.TaskId"
+                                      method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-outline-success btn-sm">Complete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>
