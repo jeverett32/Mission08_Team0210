@@ -1,3 +1,4 @@
+@using Mission08_TeamXXXX.Models
 @model TaskModel
 
 @{
@@ -10,15 +11,15 @@
         <div class="col-12 col-md-8 col-lg-6">
             <h1 class="h3 mb-3">@ViewData["Title"]</h1>
 
-            <form asp-controller="Home" asp-action="AddEditTask" method="post">
+            <form asp-controller="Home" asp-action="AddEdit" method="post">
                 <input asp-for="TaskId" type="hidden" />
 
 
 
                 <div class="mb-3">
-                    <label asp-for="Task" class="form-label">Task</label>
-                    <input asp-for="Task" class="form-control" />
-                    <span asp-validation-for="Task" class="text-danger"></span>
+                    <label asp-for="TaskName" class="form-label">Task</label>
+                    <input asp-for="TaskName" class="form-control" />
+                    <span asp-validation-for="TaskName" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">

@@ -18,17 +18,24 @@ namespace Mission08_Team0210.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddEditTask()
+        public IActionResult AddEdit()
         {
             ViewBag.Categories = _repo.Categories.ToList();
             return View(new TaskModel());
         }
         [HttpPost]
-        public IActionResult AddEditTask(TaskModel response)
+        public IActionResult AddEdit(TaskModel response)
         {
             if (ModelState.IsValid)
             {
-                _repo.AddTask(response);
+                if (response.TaskId == 0)
+                {
+                    _repo.AddTask(response);
+                }
+                else
+                {
+                    _repo.UpdateTask(response);
+                }
                 return RedirectToAction("Index");
             }
 
@@ -40,7 +47,7 @@ namespace Mission08_Team0210.Controllers
         {
             ViewBag.Categories = _repo.Categories.ToList();
             var task = _repo.Tasks.Single(x => x.TaskId == id);
-            return View("AddEditTask", task);
+            return View("AddEdit", task);
         }
         [HttpGet]
         public IActionResult Delete(int id)
@@ -52,6 +59,14 @@ namespace Mission08_Team0210.Controllers
         public IActionResult Delete(TaskModel task)
         {
             _repo.DeleteTask(task);
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public IActionResult MarkComplete(int id)
+        {
+            var task = _repo.Tasks.Single(x => x.TaskId == id);
+            task.Completed = true;
+            _repo.UpdateTask(task);
             return RedirectToAction("Index");
         }
     }
