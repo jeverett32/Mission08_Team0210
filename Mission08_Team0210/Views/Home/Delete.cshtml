@@ -1,0 +1,45 @@
+@model TaskModel
+
+@{
+    ViewData["Title"] = "Delete Task";
+}
+
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+        <h1 class="h3 mb-3">Delete Task</h1>
+        <p>Are you sure you want to delete this task?</p>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">@Model.TaskName</h5>
+                @if (!string.IsNullOrEmpty(Model.DueDate))
+                {
+                    <p class="card-text mb-1"><strong>Due Date:</strong> @Model.DueDate</p>
+                }
+                <p class="card-text mb-1"><strong>Quadrant:</strong>
+                    @switch (Model.Quadrant)
+                    {
+                        case 1:
+                            <span>I &ndash; Important / Urgent</span>
+                            break;
+                        case 2:
+                            <span>II &ndash; Important / Not Urgent</span>
+                            break;
+                        case 3:
+                            <span>III &ndash; Not Important / Urgent</span>
+                            break;
+                        case 4:
+                            <span>IV &ndash; Not Important / Not Urgent</span>
+                            break;
+                    }
+                </p>
+            </div>
+        </div>
+
+        <form asp-controller="Home" asp-action="Delete" method="post">
+            <input asp-for="TaskId" type="hidden" />
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary ms-2">Cancel</a>
+        </form>
+    </div>
+</div>
